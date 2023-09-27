@@ -1,7 +1,10 @@
 const addBook = document.getElementById('add-book')
-const checkButtons = document.querySelectorAll('#check')
-const uncheckButtons = document.querySelectorAll('#uncheck')
+const editBook = document.getElementById('edit-book')
+const checkButtons = document.querySelectorAll('#check-book')
+const uncheckButtons = document.querySelectorAll('#uncheck-book')
 const searchInput = document.getElementById('search-input')
+const closeModalForm = document.getElementById('close-modal-form')
+const backgroundBlur = document.querySelector('.background-blur')
 const searchInputWrapper = document.getElementById('search-input-wrapper')
 
 function handleMouseOver(button) {
@@ -38,10 +41,39 @@ searchInput.addEventListener('blur', () => {
 	searchInputWrapper.style.outline = 'none'
 })
 
-addBook.addEventListener('focus', () => {
-	const backgroundBlur = document.createElement('div')
-	backgroundBlur.classList.add('background-blur')
-	backgroundBlur.classList.add('show')
+const showModalAddBook = () => {
+	document.querySelector('.modal-title').textContent = 'Add Book'
+	document.querySelector('.submit-book').textContent = 'Add Book'
 
-	document.body.appendChild(backgroundBlur)
+	document.querySelector('.modal-form').classList.add('show')
+	backgroundBlur.classList.add('show')
+}
+
+const showModalUpdateBook = () => {
+	document.querySelector('.modal-title').textContent = 'Edit Book'
+	document.querySelector('.submit-book').textContent = 'Edit Book'
+
+	document.querySelector('.modal-form').classList.add('show')
+	backgroundBlur.classList.add('show')
+}
+
+const hideModalForm = () => {
+	document.querySelector('.modal-form').classList.remove('show')
+	backgroundBlur.classList.remove('show')
+}
+
+addBook.addEventListener('click', () => {
+	showModalAddBook()
+})
+
+editBook.addEventListener('click', () => {
+	showModalUpdateBook()
+})
+
+closeModalForm.addEventListener('click', () => {
+	hideModalForm()
+})
+
+backgroundBlur.addEventListener('click', () => {
+	hideModalForm()
 })

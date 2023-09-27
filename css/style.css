@@ -2,8 +2,10 @@
 
 :root {
 	--ff-primary: 'Plus Jakarta Sans', sans-serif;
-	--background-color: #292b33;
+	--primary-color: #6499e9;
+	--primary-hover: #3d6aad;
 	--dark-color: #1e2025;
+	--background-color: #292b33;
 	--soft-dark-color: #5b5e66;
 	--text-color: #d8d8d8;
 
@@ -44,8 +46,8 @@
 	background-color: var(--text-color) / 0.2;
 	-webkit-backdrop-filter: blur(2px);
 	backdrop-filter: blur(2px);
-	transition: 1s ease-in-out;
-	opacity: 0.5;
+	transition: all 0.3s ease-in-out;
+	opacity: 0;
 	z-index: -9;
 }
 
@@ -81,14 +83,14 @@
 	font-size: 22px;
 }
 
-.header .header-container {
+.header .navbar {
 	margin-top: 2rem;
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
 }
 
-.header-container .add-book {
+.navbar .add-book {
 	height: 48px;
 	aspect-ratio: 1 / 1;
 	display: flex;
@@ -100,8 +102,8 @@
 	transition-duration: 0.25s;
 }
 
-.header-container .add-book:hover,
-.header-container .add-book:focus {
+.navbar .add-book:hover,
+.navbar .add-book:focus {
 	outline: 2px solid var(--soft-dark-color);
 }
 
@@ -196,22 +198,104 @@
 	gap: 0.5rem;
 }
 
-#edit,
-#delete,
-#check,
-#uncheck {
+/* modal form */
+
+.modal-form {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	padding: 1rem;
+	transform: translate(-50%, -50%);
+	max-width: 370px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 0.875rem;
+	background-color: var(--dark-color);
+	border-radius: var(--border-radius);
+	transition: all 0.3s ease-in-out;
+	z-index: -9;
+	opacity: 0;
+	box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+.modal-form.show {
+	top: 57%;
+	opacity: 1;
+	z-index: 99;
+}
+
+.modal-form .modal-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid var(--soft-dark-color);
+	padding-bottom: 1rem;
+}
+
+.modal-header .modal-title {
+	font-size: 1.2rem;
+	font-weight: 800;
+}
+
+.modal-header .close-modal-form {
+	background-color: var(--background-color);
+	padding: 0.5rem 0.75rem;
+	border-radius: var(--border-radius);
+	outline: 2px solid transparent;
+	transition: 0.3s;
+}
+
+.modal-header .close-modal-form:hover {
+	outline: 2px solid var(--soft-dark-color);
+}
+
+.modal-form .modal-content {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.modal-content .input-field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.input-field .input-wrapper {
+	background-color: var(--background-color);
+}
+
+.modal-content .submit-book {
+	height: 48px;
+	margin-top: 1rem;
+	background-color: var(--primary-color);
+	text-align: center;
+	font-weight: 600;
+	border-radius: var(--border-radius);
+	transition: 0.3s ease-in-out;
+}
+
+.modal-content .submit-book:hover {
+	background-color: var(--primary-hover);
+}
+
+#edit-book,
+#delete-book,
+#check-book,
+#uncheck-book {
 	transition: 0.3s ease;
 }
 
-#edit:hover,
-#check:hover {
+#edit-book:hover,
+#check-book:hover {
 	color: var(--green-color);
 }
 
-#delete:hover {
+#delete-book:hover {
 	color: var(--red-color);
 }
 
-#uncheck:hover {
+#uncheck-book:hover {
 	color: var(--orange-color);
 }

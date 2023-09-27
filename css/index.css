@@ -90,12 +90,12 @@ main {
 
 ::selection {
 	background-color: var(--primary-color);
-	color: var(--background-color);
+	color: var(--text-color);
 }
 
 ::-moz-selection {
 	background-color: var(--primary-color);
-	color: var(--background-color);
+	color: var(--text-color);
 }
 
 ::-webkit-scrollbar {
@@ -103,7 +103,7 @@ main {
 }
 
 ::-webkit-scrollbar-track {
-	background-color: var(--background-color);
+	background-color: var(--text-color);
 }
 
 ::-webkit-scrollbar-thumb {
