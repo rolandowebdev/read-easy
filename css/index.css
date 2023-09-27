@@ -46,11 +46,15 @@ a {
 button {
 	border: none;
 	color: inherit;
-	font: inherit;
 	line-height: normal;
 	background-color: transparent;
 	-webkit-font-smoothing: inherit;
 	-moz-osx-font-smoothing: inherit;
+}
+
+input[type='submit'],
+button {
+	font: inherit;
 }
 
 button,

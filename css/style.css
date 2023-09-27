@@ -109,6 +109,7 @@
 
 .add-book > i {
 	font-weight: 600;
+	color: var(--soft-dark-color);
 }
 
 /* main */
@@ -195,7 +196,7 @@
 
 .book-item-footer .book-action {
 	display: flex;
-	gap: 0.5rem;
+	gap: 0.75rem;
 }
 
 /* modal form */
@@ -271,6 +272,7 @@
 	margin-top: 1rem;
 	background-color: var(--primary-color);
 	text-align: center;
+	font-size: 1rem;
 	font-weight: 600;
 	border-radius: var(--border-radius);
 	transition: 0.3s ease-in-out;
@@ -280,22 +282,22 @@
 	background-color: var(--primary-hover);
 }
 
-#edit-book,
-#delete-book,
-#check-book,
-#uncheck-book {
+.edit-book,
+.delete-book,
+.completed-read,
+.uncompleted-read {
 	transition: 0.3s ease;
 }
 
-#edit-book:hover,
-#check-book:hover {
+.edit-book:hover,
+.uncompleted-read:hover {
 	color: var(--green-color);
 }
 
-#delete-book:hover {
+.delete-book:hover {
 	color: var(--red-color);
 }
 
-#uncheck-book:hover {
+.completed-read:hover {
 	color: var(--orange-color);
 }
