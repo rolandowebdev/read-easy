@@ -153,22 +153,47 @@
 	background-color: var(--dark-color);
 }
 
-.book-list-item .book-title {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-}
-
-.book-title > h3 {
-	font-size: 0.875rem;
-	font-weight: 600;
-	cursor: default;
-}
-
-.book-list-item .book-action {
+.book-list-item .book-item-container {
 	display: flex;
 	align-items: center;
 	gap: 0.75rem;
+	width: 100%;
+}
+
+.book-item-container .book-item-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.book-item-wrapper .book-item-header,
+.book-item-wrapper .book-item-footer {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+.book-item-wrapper .book-item-footer {
+	align-items: flex-end;
+}
+
+.book-item-header .book-title {
+	font-size: 0.875rem;
+	font-weight: 800;
+}
+
+.book-item-header .book-author {
+	font-size: 0.75rem;
+}
+
+.book-item-footer .book-year {
+	font-size: 0.75rem;
+	font-weight: 600;
+}
+
+.book-item-footer .book-action {
+	display: flex;
+	gap: 0.5rem;
 }
 
 #edit,
