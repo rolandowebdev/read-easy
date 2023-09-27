@@ -1,0 +1,111 @@
+html {
+	font-size: 1rem;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+body,
+button,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul,
+br {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	color: var(--dark-color);
+	text-decoration: none;
+	font-weight: 600;
+}
+
+button {
+	border: none;
+	color: inherit;
+	font: inherit;
+	line-height: normal;
+	background-color: transparent;
+	-webkit-font-smoothing: inherit;
+	-moz-osx-font-smoothing: inherit;
+}
+
+button,
+a {
+	text-align: inherit;
+	cursor: pointer;
+}
+
+input {
+	border: none;
+	text-decoration: none;
+	color: white;
+	cursor: pointer;
+}
+
+input:focus {
+	outline: none;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-family: var(--ff-primary);
+	background-color: var(--background-color);
+	color: var(--text-color);
+}
+
+main {
+	width: 100%;
+	max-width: 32rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+::selection {
+	background-color: var(--primary-color);
+	color: var(--background-color);
+}
+
+::-moz-selection {
+	background-color: var(--primary-color);
+	color: var(--background-color);
+}
+
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--primary-color);
+}

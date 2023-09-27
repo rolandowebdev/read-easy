@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+	--ff-primary: 'Plus Jakarta Sans', sans-serif;
+	--background-color: #292b33;
+	--dark-color: #1e2025;
+	--soft-dark-color: #5b5e66;
+	--text-color: #d8d8d8;
+
+	--red-color: #f31559;
+	--orange-color: #e25e3e;
+	--green-color: #219c90;
+
+	--border-radius: 0.375rem;
+}
+
+/* additional class */
+
+.input-wrapper {
+	width: 100%;
+	height: 48px;
+	padding-inline: 0.75rem;
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	background-color: var(--dark-color);
+	border-radius: var(--border-radius);
+	overflow: hidden;
+}
+
+.input-wrapper > i {
+	color: var(--soft-dark-color);
+}
+
+.input-wrapper > input {
+	height: 100%;
+	width: 100%;
+	background-color: transparent;
+}
+
+.background-blur {
+	inset: 0;
+	position: fixed;
+	background-color: var(--text-color) / 0.2;
+	-webkit-backdrop-filter: blur(2px);
+	backdrop-filter: blur(2px);
+	transition: 1s ease-in-out;
+	opacity: 0.5;
+	z-index: -9;
+}
+
+.background-blur.show {
+	opacity: 1;
+	z-index: 9;
+}
+
+/* header */
+
+.header {
+	width: 100%;
+	max-width: 32rem;
+	margin-bottom: 20px;
+	margin-top: 2rem;
+}
+
+.header .logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: 0.25s ease;
+	color: var(--text-color);
+	gap: 0.5rem;
+}
+
+.logo .title {
+	font-size: 24px;
+	font-weight: 800;
+}
+
+.logo > i {
+	font-size: 22px;
+}
+
+.header .header-container {
+	margin-top: 2rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.header-container .add-book {
+	height: 48px;
+	aspect-ratio: 1 / 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--dark-color);
+	border-radius: var(--border-radius);
+	outline: 2px solid transparent;
+	transition-duration: 0.25s;
+}
+
+.header-container .add-book:hover,
+.header-container .add-book:focus {
+	outline: 2px solid var(--soft-dark-color);
+}
+
+.add-book > i {
+	font-weight: 600;
+}
+
+/* main */
+
+.book-container {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.book-container .list-book-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid var(--soft-dark-color);
+	padding-bottom: 0.5rem;
+}
+
+.list-book-header .list-book-title {
+	font-size: 0.75rem;
+	font-weight: 600;
+}
+
+.list-book-header .list-book-count {
+	font-size: 0.75rem;
+	font-weight: 600;
+}
+
+.book-container .book-list {
+	display: flex;
+	flex-direction: column;
+}
+
+.book-list .book-list-item {
+	padding: 0.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-radius: var(--border-radius);
+	transition: 0.3s ease;
+}
+
+.book-list .book-list-item:hover {
+	background-color: var(--dark-color);
+}
+
+.book-list-item .book-title {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.book-title > h3 {
+	font-size: 0.875rem;
+	font-weight: 600;
+	cursor: default;
+}
+
+.book-list-item .book-action {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+#edit,
+#delete,
+#check,
+#uncheck {
+	transition: 0.3s ease;
+}
+
+#edit:hover,
+#check:hover {
+	color: var(--green-color);
+}
+
+#delete:hover {
+	color: var(--red-color);
+}
+
+#uncheck:hover {
+	color: var(--orange-color);
+}

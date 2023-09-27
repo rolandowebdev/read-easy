@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Read easy application make you easily to manage your book" />
+		<title>ReadEasy</title>
+		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body>
+		<header class="header">
+			<a href="#" class="logo"
+				><i class="fa-regular fa-bell"></i>
+				<h1 class="title">ReadEasy</h1></a
+			>
+			<div class="header-container">
+				<div id="search-input-wrapper" class="input-wrapper">
+					<i class="fa-solid fa-search"></i>
+					<input id="search-input" type="text" placeholder="Search book" />
+				</div>
+				<button id="add-book" class="add-book">
+					<i class="fa-regular fa-plus"></i>
+				</button>
+			</div>
+		</header>
+
+		<main>
+			<article class="book-container">
+				<header class="list-book-header">
+					<h2 class="list-book-title">Complete</h2>
+					<p id="list-book-count" class="list-book-count">2 items</p>
+				</header>
+				<ul id="incomplete-read" class="book-list">
+					<li class="book-list-item">
+						<div class="book-title">
+							<button id="check">
+								<i class="fa-regular fa-circle"></i>
+							</button>
+							<h3>Atomic Habits</h3>
+						</div>
+						<div class="book-action">
+							<button id="edit">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</button>
+							<button id="delete">
+								<i class="fa-regular fa-trash-can"></i>
+							</button>
+						</div>
+					</li>
+					<li class="book-list-item">
+						<div class="book-title">
+							<button id="check">
+								<i class="fa-regular fa-circle"></i>
+							</button>
+							<h3>Halo Koding</h3>
+						</div>
+						<div class="book-action">
+							<button id="edit">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</button>
+							<button id="delete">
+								<i class="fa-regular fa-trash-can"></i>
+							</button>
+						</div>
+					</li>
+				</ul>
+			</article>
+			<article class="book-container">
+				<header class="list-book-header">
+					<h2 class="list-book-title">Incomplete</h2>
+					<p id="list-book-count" class="list-book-count">1 items</p>
+				</header>
+				<ul id="complete-read" class="book-list">
+					<li class="book-list-item">
+						<div class="book-title">
+							<button id="uncheck">
+								<i class="fa-regular fa-circle-check"></i>
+							</button>
+							<h3>Halo Koding</h3>
+						</div>
+						<div class="book-action">
+							<button id="edit">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</button>
+							<button id="delete">
+								<i class="fa-regular fa-trash-can"></i>
+							</button>
+						</div>
+					</li>
+				</ul>
+			</article>
+		</main>
+
+		<script
+			src="https://kit.fontawesome.com/703ffa6e35.js"
+			crossorigin="anonymous"></script>
+		<script src="js/script.js" type="text/javascript"></script>
+	</body>
+</html>
