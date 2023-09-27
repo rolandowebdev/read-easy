@@ -45,14 +45,14 @@ function handleInputFocusBlur(input, wrapper) {
 }
 
 function updateCompletedBookCount() {
-	const completedBooks = books.filter((book) => book.isCompleted)
+	const completedBooks = books.filter((book) => book.isComplete)
 	completedBookCount.textContent = `${completedBooks.length} Book${
 		completedBooks.length > 1 ? 's' : ''
 	}`
 }
 
 function updateUncompletedBookCount() {
-	const uncompletedBooks = books.filter((book) => !book.isCompleted)
+	const uncompletedBooks = books.filter((book) => !book.isComplete)
 	uncompletedBookCount.textContent = `${uncompletedBooks.length} Book${
 		uncompletedBooks.length > 1 ? 's' : ''
 	}`
@@ -64,7 +64,7 @@ function addBook() {
 		title: titleInput.value,
 		author: authorInput.value,
 		year: +yearInput.value,
-		isCompleted: false
+		isComplete: false
 	}
 
 	books.push(bookData)
@@ -100,7 +100,7 @@ function uncompletedBook(bookId) {
 
 	if (bookTarget == null) return
 
-	bookTarget.isCompleted = true
+	bookTarget.isComplete = true
 
 	updateCompletedBookCount()
 	updateUncompletedBookCount()
@@ -113,7 +113,7 @@ function completedBook(bookId) {
 
 	if (bookTarget == null) return
 
-	bookTarget.isCompleted = false
+	bookTarget.isComplete = false
 
 	updateCompletedBookCount()
 	updateUncompletedBookCount()
@@ -187,7 +187,7 @@ function createBookListItem(bookData) {
 	const bookItemContainer = document.createElement('div')
 	bookItemContainer.classList.add('book-item-container')
 
-	if (bookData.isCompleted) {
+	if (bookData.isComplete) {
 		const completedButton = document.createElement('button')
 		completedButton.classList.add('completed-read')
 		completedButton.append(completedIcon)
@@ -266,7 +266,7 @@ document.addEventListener(RENDER_EVENT, () => {
 	for (const bookItem of books) {
 		const bookListItem = createBookListItem(bookItem)
 
-		if (!bookItem.isCompleted) {
+		if (!bookItem.isComplete) {
 			uncompletedRead.append(bookListItem)
 		} else {
 			completedRead.append(bookListItem)
