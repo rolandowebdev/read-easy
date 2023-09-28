@@ -1,13 +1,14 @@
 const addBookButton = document.getElementById('add-book')
-const modalForm = document.getElementById('modal-add-form')
+const searchInput = document.getElementById('search-input')
+const modalAddForm = document.getElementById('modal-add-form')
+const modalEditForm = document.getElementById('modal-edit-form')
+const yearAddInput = document.getElementById('year-add-input')
+const titleAddInput = document.getElementById('title-add-input')
+const authorAddInput = document.getElementById('author-add-input')
+const closeModalAddBook = document.getElementById('close-modal-add-book')
+const closeModalEditBook = document.getElementById('close-modal-edit-book')
 const completedBookCount = document.getElementById('completed-book-count')
 const uncompletedBookCount = document.getElementById('uncompleted-book-count')
-const closeModalFormButton = document.getElementById('close-modal-form')
-const searchInput = document.getElementById('search-input')
-const yearInput = document.getElementById('year')
-const titleInput = document.getElementById('title')
-const authorInput = document.getElementById('author')
-const backgroundBlur = document.querySelector('.background-blur')
 const inputWrappers = {
 	search: document.getElementById('search-input-wrapper'),
 	title: document.getElementById('title-input-wrapper'),
@@ -31,14 +32,66 @@ function handleMouseOver(button) {
 	icon.classList.toggle('fa-circle-check')
 }
 
-function showModalForm() {
-	modalForm.classList.add('show')
-	backgroundBlur.classList.add('show')
+function showModalAddBook() {
+	const modalBlurBackground = createModalBlur()
+
+	modalAddForm.classList.add('show')
+
+	modalBlurBackground.addEventListener('click', (event) => {
+		if (event.target === modalBlurBackground) {
+			hideModalAddBook()
+		}
+	})
+
+	requestAnimationFrame(() => {
+		modalBlurBackground.classList.add('show')
+	})
+
+	document.body.appendChild(modalBlurBackground)
 }
 
-function hideModalForm() {
-	modalForm.classList.remove('show')
-	backgroundBlur.classList.remove('show')
+function hideModalAddBook() {
+	const modalBlurBackground = document.querySelector('.modal-blur.show')
+
+	modalAddForm.classList.remove('show')
+	modalBlurBackground.classList.remove('show')
+
+	setTimeout(() => {
+		document.body.removeChild(modalBlurBackground)
+	}, 300)
+}
+
+function openEditBookForm(bookData) {
+	document.getElementById('book-id').value = bookData.id
+	document.getElementById('title-edit-input').value = bookData.title
+	document.getElementById('author-edit-input').value = bookData.author
+	document.getElementById('year-edit-input').value = bookData.year
+
+	const modalBlurBackground = createModalBlur()
+	modalEditForm.classList.add('show')
+
+	modalBlurBackground.addEventListener('click', (event) => {
+		if (event.target === modalBlurBackground) {
+			hideModalEditBookForm()
+		}
+	})
+
+	requestAnimationFrame(() => {
+		modalBlurBackground.classList.add('show')
+	})
+
+	document.body.appendChild(modalBlurBackground)
+}
+
+function hideModalEditBookForm() {
+	const modalBlurBackground = document.querySelector('.modal-blur.show')
+
+	modalEditForm.classList.remove('show')
+	modalBlurBackground.classList.remove('show')
+
+	setTimeout(() => {
+		document.body.removeChild(modalBlurBackground)
+	}, 300)
 }
 
 function showModalAlert(modal) {
@@ -96,9 +149,9 @@ function updateUncompletedBookCount() {
 function addBook() {
 	const bookData = {
 		id: +new Date(),
-		title: titleInput.value,
-		author: authorInput.value,
-		year: +yearInput.value,
+		title: titleAddInput.value,
+		author: authorAddInput.value,
+		year: +yearAddInput.value,
 		isComplete: false
 	}
 
@@ -167,8 +220,6 @@ function deletedBook(bookId) {
 }
 
 function modalDelete(bookData) {
-	const modalBlurBackground = createModalBlur()
-
 	const modalAlert = document.createElement('div')
 
 	const modalTitle = document.createElement('h2')
@@ -259,6 +310,10 @@ function createBookListItem(bookData) {
 	editButton.classList.add('edit-book')
 	editButton.append(editIcon)
 
+	editButton.addEventListener('click', () => {
+		openEditBookForm(bookData)
+	})
+
 	const deleteButton = document.createElement('button')
 	deleteButton.classList.add('delete-book')
 	deleteButton.append(deleteIcon)
@@ -331,7 +386,8 @@ function createBookListItem(bookData) {
 
 document.addEventListener('DOMContentLoaded', () => {
 	const logo = document.querySelector('.logo')
-	const submitForm = document.getElementById('form-add-book')
+	const submitAddBook = document.getElementById('form-add-book')
+	const submitEditBook = document.getElementById('form-edit-book')
 
 	logo.addEventListener('mouseover', () => {
 		document.querySelector('.fa-bell').classList.add('fa-shake')
@@ -341,14 +397,35 @@ document.addEventListener('DOMContentLoaded', () => {
 		document.querySelector('.fa-bell').classList.remove('fa-shake')
 	})
 
-	submitForm.addEventListener('submit', function (event) {
-		event.preventDefault()
+	submitAddBook.addEventListener('submit', (e) => {
+		e.preventDefault()
 		addBook()
-		hideModalForm()
+		hideModalAddBook()
 
-		titleInput.value = ''
-		authorInput.value = ''
-		yearInput.value = ''
+		titleAddInput.value = ''
+		authorAddInput.value = ''
+		yearAddInput.value = ''
+	})
+
+	submitEditBook.addEventListener('submit', (e) => {
+		e.preventDefault()
+
+		const editedBookData = {
+			id: +document.getElementById('book-id').value,
+			title: document.getElementById('title-edit-input').value,
+			author: document.getElementById('author-edit-input').value,
+			year: +document.getElementById('year-edit-input').value,
+			isComplete: false
+		}
+
+		const bookIndex = findBookIndex(editedBookData.id)
+		if (bookIndex !== -1) {
+			editedBookData.isComplete = books[bookIndex].isComplete
+			books[bookIndex] = editedBookData
+		}
+
+		document.dispatchEvent(new Event(RENDER_EVENT))
+		hideModalEditBookForm()
 	})
 })
 
@@ -373,11 +450,11 @@ document.addEventListener(RENDER_EVENT, () => {
 	updateUncompletedBookCount()
 })
 
-addBookButton.addEventListener('click', showModalForm)
-backgroundBlur.addEventListener('click', hideModalForm)
-closeModalFormButton.addEventListener('click', hideModalForm)
+addBookButton.addEventListener('click', showModalAddBook)
+closeModalAddBook.addEventListener('click', hideModalAddBook)
+closeModalEditBook.addEventListener('click', hideModalEditBookForm)
 
 handleInputFocusBlur(searchInput, inputWrappers.search)
-handleInputFocusBlur(titleInput, inputWrappers.title)
-handleInputFocusBlur(authorInput, inputWrappers.author)
-handleInputFocusBlur(yearInput, inputWrappers.year)
+handleInputFocusBlur(titleAddInput, inputWrappers.title)
+handleInputFocusBlur(authorAddInput, inputWrappers.author)
+handleInputFocusBlur(yearAddInput, inputWrappers.year)

@@ -11,24 +11,22 @@
 		<link rel="stylesheet" href="css/style.css" />
 	</head>
 	<body>
-		<div class="background-blur"></div>
-
 		<div id="modal-add-form" class="modal-form">
 			<div class="modal-header">
 				<h2 class="modal-title">Add Book</h2>
-				<button id="close-modal-form" class="close-modal-form">
+				<button id="close-modal-add-book" class="close-modal-form">
 					<i class="fa-solid fa-xmark"></i>
 				</button>
 			</div>
 
 			<form id="form-add-book" class="modal-content" action="#">
 				<div class="input-field">
-					<label for="title">Title</label>
+					<label for="title-add-input">Title</label>
 					<div id="title-input-wrapper" class="input-wrapper">
 						<i class="fa-solid fa-heading"></i>
 						<input
-							id="title"
-							name="title"
+							id="title-add-input"
+							name="title-add-input"
 							class="input-item"
 							type="text"
 							placeholder="Title"
@@ -38,12 +36,12 @@
 				</div>
 
 				<div class="input-field">
-					<label for="author">Author</label>
+					<label for="author-add-input">Author</label>
 					<div id="author-input-wrapper" class="input-wrapper">
 						<i class="fa-solid fa-pen-nib"></i>
 						<input
-							id="author"
-							name="author"
+							id="author-add-input"
+							name="author-add-input"
 							class="input-item"
 							type="text"
 							placeholder="Author"
@@ -53,12 +51,12 @@
 				</div>
 
 				<div class="input-field">
-					<label for="year">Year</label>
+					<label for="year-add-input">Year</label>
 					<div id="year-input-wrapper" class="input-wrapper">
 						<i class="fa-regular fa-calendar"></i>
 						<input
-							name="year"
-							id="year"
+							id="year-add-input"
+							name="year-add-input"
 							class="input-item"
 							type="number"
 							min="1900"
@@ -72,6 +70,70 @@
 					type="submit"
 					name="Add Book"
 					value="Add Book"
+					class="submit-book" />
+			</form>
+		</div>
+
+		<div id="modal-edit-form" class="modal-form">
+			<div class="modal-header">
+				<h2 class="modal-title">Edit Book</h2>
+				<button id="close-modal-edit-book" class="close-modal-form">
+					<i class="fa-solid fa-xmark"></i>
+				</button>
+			</div>
+
+			<form id="form-edit-book" class="modal-content" action="#">
+				<input type="hidden" id="book-id" name="book-id" value="" />
+				<div class="input-field">
+					<label for="title-edit-input">Title</label>
+					<div id="title-input-wrapper" class="input-wrapper">
+						<i class="fa-solid fa-heading"></i>
+						<input
+							id="title-edit-input"
+							name="title-edit-input"
+							class="input-item"
+							type="text"
+							placeholder="Title"
+							autocomplete="off"
+							required />
+					</div>
+				</div>
+
+				<div class="input-field">
+					<label for="author-edit-input">Author</label>
+					<div id="author-input-wrapper" class="input-wrapper">
+						<i class="fa-solid fa-pen-nib"></i>
+						<input
+							id="author-edit-input"
+							name="author-edit-input"
+							class="input-item"
+							type="text"
+							placeholder="Author"
+							autocomplete="off"
+							required />
+					</div>
+				</div>
+
+				<div class="input-field">
+					<label for="year-edit-input">Year</label>
+					<div id="year-input-wrapper" class="input-wrapper">
+						<i class="fa-regular fa-calendar"></i>
+						<input
+							id="year-edit-input"
+							name="year-edit-input"
+							class="input-item"
+							type="number"
+							min="1900"
+							max="2099"
+							step="1"
+							required />
+					</div>
+				</div>
+
+				<input
+					type="submit"
+					name="Edit Book"
+					value="Edit Book"
 					class="submit-book" />
 			</form>
 		</div>
