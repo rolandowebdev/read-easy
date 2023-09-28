@@ -406,22 +406,22 @@
 
 /* icon style */
 
-.edit-book,
-.delete-book,
-.completed-read,
-.uncompleted-read {
+.edit-book-button,
+.delete-book-button,
+.completed-read-button,
+.uncompleted-read-botton {
 	transition: 0.3s ease;
 }
 
-.edit-book:hover,
-.uncompleted-read:hover {
+.edit-book-button:hover,
+.uncompleted-read-button:hover {
 	color: var(--green-color);
 }
 
-.delete-book:hover {
+.delete-book-button:hover {
 	color: var(--red-hover);
 }
 
-.completed-read:hover {
+.completed-read-button:hover {
 	color: var(--orange-color);
 }

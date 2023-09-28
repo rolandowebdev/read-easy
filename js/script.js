@@ -25,6 +25,8 @@ const inputWrappers = {
 
 const books = []
 const RENDER_EVENT = 'render-books'
+const STORAGE_KEY = 'EASY_READ_APPS'
+const SAVED_EVENT = 'saved-books'
 
 function createModalBlur() {
 	const modalBlur = document.createElement('div')
@@ -89,7 +91,7 @@ function openEditBookForm(bookData) {
 
 	modalBlurBackground.addEventListener('click', (event) => {
 		if (event.target === modalBlurBackground) {
-			hideModalEditBookForm()
+			hideModalEditBook()
 		}
 	})
 
@@ -100,7 +102,7 @@ function openEditBookForm(bookData) {
 	document.body.appendChild(modalBlurBackground)
 }
 
-function hideModalEditBookForm() {
+function hideModalEditBook() {
 	const modalBlurBackground = document.querySelector('.modal-blur.show')
 
 	modalEditForm.classList.remove('show')
@@ -139,14 +141,14 @@ function hideModalAlert(modal) {
 	}, 300)
 }
 
-function updateCompletedBookCount() {
+function updateCompleteBookCount() {
 	const completedBooks = books.filter((book) => book.isComplete)
 	completedBookCount.textContent = `${completedBooks.length} Book${
 		completedBooks.length > 1 ? 's' : ''
 	}`
 }
 
-function updateUncompletedBookCount() {
+function updateUncompleteBookCount() {
 	const uncompletedBooks = books.filter((book) => !book.isComplete)
 	uncompletedBookCount.textContent = `${uncompletedBooks.length} Book${
 		uncompletedBooks.length > 1 ? 's' : ''
@@ -172,10 +174,30 @@ function addBook() {
 
 	books.push(bookData)
 
-	updateCompletedBookCount()
-	updateUncompletedBookCount()
+	updateCompleteBookCount()
+	updateUncompleteBookCount()
 
 	document.dispatchEvent(new Event(RENDER_EVENT))
+	saveBookToLocalstorage()
+}
+
+function editBook() {
+	const editedBookData = {
+		id: +bookId.value,
+		title: titleEditInput.value,
+		author: authorEditInput.value,
+		year: +yearEditInput.value,
+		isComplete: false
+	}
+
+	const bookIndex = findBookIndex(editedBookData.id)
+	if (bookIndex !== -1) {
+		editedBookData.isComplete = books[bookIndex].isComplete
+		books[bookIndex] = editedBookData
+	}
+
+	document.dispatchEvent(new Event(RENDER_EVENT))
+	saveBookToLocalstorage()
 }
 
 function findBookIndex(bookId) {
@@ -205,10 +227,11 @@ function uncompletedBook(bookId) {
 
 	bookTarget.isComplete = true
 
-	updateCompletedBookCount()
-	updateUncompletedBookCount()
+	updateCompleteBookCount()
+	updateUncompleteBookCount()
 
 	document.dispatchEvent(new Event(RENDER_EVENT))
+	saveBookToLocalstorage()
 }
 
 function completedBook(bookId) {
@@ -218,10 +241,11 @@ function completedBook(bookId) {
 
 	bookTarget.isComplete = false
 
-	updateCompletedBookCount()
-	updateUncompletedBookCount()
+	updateCompleteBookCount()
+	updateUncompleteBookCount()
 
 	document.dispatchEvent(new Event(RENDER_EVENT))
+	saveBookToLocalstorage()
 }
 
 function deletedBook(bookId) {
@@ -232,6 +256,7 @@ function deletedBook(bookId) {
 	books.splice(bookTarget, 1)
 
 	document.dispatchEvent(new Event(RENDER_EVENT))
+	saveBookToLocalstorage()
 }
 
 function modalDelete(bookData) {
@@ -322,7 +347,7 @@ function createBookListItem(bookData) {
 	bookYear.innerText = `Year : ${bookData.year}`
 
 	const editButton = document.createElement('button')
-	editButton.classList.add('edit-book')
+	editButton.classList.add('edit-book-button')
 	editButton.append(editIcon)
 
 	editButton.addEventListener('mouseover', () => {
@@ -338,7 +363,7 @@ function createBookListItem(bookData) {
 	})
 
 	const deleteButton = document.createElement('button')
-	deleteButton.classList.add('delete-book')
+	deleteButton.classList.add('delete-book-button')
 	deleteButton.append(deleteIcon)
 
 	deleteButton.addEventListener('mouseover', () => {
@@ -371,7 +396,7 @@ function createBookListItem(bookData) {
 
 	if (bookData.isComplete) {
 		const completedButton = document.createElement('button')
-		completedButton.classList.add('completed-read')
+		completedButton.classList.add('completed-read-button')
 		completedButton.append(completedIcon)
 
 		completedButton.addEventListener('mouseover', () => {
@@ -391,7 +416,7 @@ function createBookListItem(bookData) {
 		bookItemContainer.append(completedButton, bookItemWrapper)
 	} else {
 		const uncompletedButton = document.createElement('button')
-		uncompletedButton.classList.add('uncompleted-read')
+		uncompletedButton.classList.add('uncompleted-read-button')
 		uncompletedButton.append(uncompletedIcon)
 
 		uncompletedButton.addEventListener('mouseover', () => {
@@ -444,6 +469,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		document.querySelector('.fa-search').classList.remove('fa-flip')
 	})
 
+	if (isStorageExist()) {
+		loadDataFromStorage()
+	}
+
 	submitAddBook.addEventListener('submit', (e) => {
 		e.preventDefault()
 		addBook()
@@ -456,32 +485,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	submitEditBook.addEventListener('submit', (e) => {
 		e.preventDefault()
-
-		const editedBookData = {
-			id: +bookId.value,
-			title: titleEditInput.value,
-			author: authorEditInput.value,
-			year: +yearEditInput.value,
-			isComplete: false
-		}
-
-		const bookIndex = findBookIndex(editedBookData.id)
-		if (bookIndex !== -1) {
-			editedBookData.isComplete = books[bookIndex].isComplete
-			books[bookIndex] = editedBookData
-		}
-
-		document.dispatchEvent(new Event(RENDER_EVENT))
-		hideModalEditBookForm()
+		editBook()
+		hideModalEditBook()
 	})
 })
 
 document.addEventListener(RENDER_EVENT, () => {
-	const uncompletedRead = document.getElementById('uncompleted-read')
-	uncompletedRead.innerHTML = ''
+	const uncompletedReadContainer = document.getElementById(
+		'uncompleted-read-container'
+	)
+	uncompletedReadContainer.innerHTML = ''
 
-	const completedRead = document.getElementById('completed-read')
-	completedRead.innerHTML = ''
+	const completedReadContainer = document.getElementById(
+		'completed-read-container'
+	)
+	completedReadContainer.innerHTML = ''
 
 	const searchValue = searchInput.value.toLowerCase()
 	const filteredBooks = filterBooks(searchValue)
@@ -501,19 +519,23 @@ document.addEventListener(RENDER_EVENT, () => {
 		const bookListItem = createBookListItem(bookItem)
 
 		if (!bookItem.isComplete) {
-			uncompletedRead.append(bookListItem)
+			uncompletedReadContainer.append(bookListItem)
 		} else {
-			completedRead.append(bookListItem)
+			completedReadContainer.append(bookListItem)
 		}
 	}
 
-	updateCompletedBookCount()
-	updateUncompletedBookCount()
+	updateCompleteBookCount()
+	updateUncompleteBookCount()
+})
+
+document.addEventListener(SAVED_EVENT, () => {
+	console.log(localStorage.getItem(STORAGE_KEY))
 })
 
 addBookButton.addEventListener('click', showModalAddBook)
 closeModalAddBook.addEventListener('click', hideModalAddBook)
-closeModalEditBook.addEventListener('click', hideModalEditBookForm)
+closeModalEditBook.addEventListener('click', hideModalEditBook)
 
 handleInputFocusBlur(searchInput, inputWrappers.search)
 
