@@ -1,3 +1,4 @@
+const bookId = document.getElementById('book-id')
 const addBookButton = document.getElementById('add-book')
 const searchInput = document.getElementById('search-input')
 const modalAddForm = document.getElementById('modal-add-form')
@@ -5,7 +6,6 @@ const modalEditForm = document.getElementById('modal-edit-form')
 const yearAddInput = document.getElementById('year-add-input')
 const titleAddInput = document.getElementById('title-add-input')
 const authorAddInput = document.getElementById('author-add-input')
-const bookId = document.getElementById('book-id')
 const yearEditInput = document.getElementById('year-edit-input')
 const titleEditInput = document.getElementById('title-edit-input')
 const authorEditInput = document.getElementById('author-edit-input')
@@ -37,6 +37,16 @@ function handleMouseOver(button) {
 	const icon = button.querySelector('i')
 	icon.classList.toggle('fa-circle')
 	icon.classList.toggle('fa-circle-check')
+}
+
+function handleInputFocusBlur(input, wrapper) {
+	input.addEventListener('focus', () => {
+		wrapper.style.outline = '2px solid var(--soft-dark-color)'
+	})
+
+	input.addEventListener('blur', () => {
+		wrapper.style.outline = 'none'
+	})
 }
 
 function showModalAddBook() {
@@ -127,16 +137,6 @@ function hideModalAlert(modal) {
 		document.body.removeChild(modal)
 		document.body.removeChild(modalBlurBackground)
 	}, 300)
-}
-
-function handleInputFocusBlur(input, wrapper) {
-	input.addEventListener('focus', () => {
-		wrapper.style.outline = '2px solid var(--soft-dark-color)'
-	})
-
-	input.addEventListener('blur', () => {
-		wrapper.style.outline = 'none'
-	})
 }
 
 function updateCompletedBookCount() {
@@ -319,11 +319,19 @@ function createBookListItem(bookData) {
 
 	const bookYear = document.createElement('p')
 	bookYear.classList.add('book-year')
-	bookYear.innerText = bookData.year
+	bookYear.innerText = `Year : ${bookData.year}`
 
 	const editButton = document.createElement('button')
 	editButton.classList.add('edit-book')
 	editButton.append(editIcon)
+
+	editButton.addEventListener('mouseover', () => {
+		editIcon.classList.add('fa-flip')
+	})
+
+	editButton.addEventListener('mouseout', () => {
+		editIcon.classList.remove('fa-flip')
+	})
 
 	editButton.addEventListener('click', () => {
 		openEditBookForm(bookData)
@@ -332,6 +340,14 @@ function createBookListItem(bookData) {
 	const deleteButton = document.createElement('button')
 	deleteButton.classList.add('delete-book')
 	deleteButton.append(deleteIcon)
+
+	deleteButton.addEventListener('mouseover', () => {
+		deleteIcon.classList.add('fa-shake')
+	})
+
+	deleteButton.addEventListener('mouseout', () => {
+		deleteIcon.classList.remove('fa-shake')
+	})
 
 	deleteButton.addEventListener('click', () => {
 		const modal = modalDelete(bookData)
@@ -359,10 +375,12 @@ function createBookListItem(bookData) {
 		completedButton.append(completedIcon)
 
 		completedButton.addEventListener('mouseover', () => {
+			completedIcon.classList.add('fa-bounce')
 			handleMouseOver(completedButton)
 		})
 
 		completedButton.addEventListener('mouseout', () => {
+			completedIcon.classList.remove('fa-bounce')
 			handleMouseOver(completedButton)
 		})
 
@@ -377,10 +395,12 @@ function createBookListItem(bookData) {
 		uncompletedButton.append(uncompletedIcon)
 
 		uncompletedButton.addEventListener('mouseover', () => {
+			uncompletedIcon.classList.add('fa-bounce')
 			handleMouseOver(uncompletedButton)
 		})
 
 		uncompletedButton.addEventListener('mouseout', () => {
+			uncompletedIcon.classList.remove('fa-bounce')
 			handleMouseOver(uncompletedButton)
 		})
 
@@ -414,10 +434,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	searchInput.addEventListener('input', () => {
 		document.dispatchEvent(new Event(RENDER_EVENT))
+	})
+
+	searchInput.addEventListener('focus', () => {
 		document.querySelector('.fa-search').classList.add('fa-flip')
 	})
 
-	searchInput.addEventListener('mouseleave', () => {
+	searchInput.addEventListener('blur', () => {
 		document.querySelector('.fa-search').classList.remove('fa-flip')
 	})
 

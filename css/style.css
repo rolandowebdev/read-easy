@@ -2,7 +2,7 @@
 
 :root {
 	--ff-primary: 'Plus Jakarta Sans', sans-serif;
-	--primary-color: #6499e9;
+	--primary-color: #356cbd;
 	--dark-color: #1e2025;
 	--background-color: #292b33;
 	--soft-dark-color: #5b5e66;
@@ -13,7 +13,7 @@
 	--green-color: #219c90;
 
 	--red-hover: #f31559;
-	--primary-hover: #3d6aad;
+	--primary-hover: #619af1;
 
 	--border-radius: 0.375rem;
 }
@@ -58,6 +58,8 @@
 	transition: 0.25s ease;
 	color: var(--text-color);
 	gap: 0.5rem;
+	width: fit-content;
+	margin-inline: auto;
 }
 
 .logo .title {
@@ -162,6 +164,7 @@
 	flex-direction: column;
 	gap: 0.75rem;
 }
+
 .book-item-wrapper .book-item-footer {
 	align-items: flex-end;
 }
@@ -183,6 +186,13 @@
 .book-item-footer .book-action {
 	display: flex;
 	gap: 0.75rem;
+}
+
+.edit-book > i,
+.delete-book > i,
+.uncompleted-read > i,
+.completed-read > i {
+	font-size: 18px;
 }
 
 /* book not found */
@@ -409,7 +419,7 @@
 }
 
 .delete-book:hover {
-	color: var(--red-color);
+	color: var(--red-hover);
 }
 
 .completed-read:hover {
