@@ -11,6 +11,7 @@ function saveBookToLocalstorage() {
 	if (isStorageExist()) {
 		const parsed = JSON.stringify(books)
 		localStorage.setItem(STORAGE_KEY, parsed)
+
 		document.dispatchEvent(new Event(SAVED_EVENT))
 	}
 }
