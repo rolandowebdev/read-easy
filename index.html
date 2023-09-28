@@ -22,7 +22,7 @@
 			<form id="form-add-book" class="modal-content" action="#">
 				<div class="input-field">
 					<label for="title-add-input">Title</label>
-					<div id="title-input-wrapper" class="input-wrapper">
+					<div id="title-add-wrapper" class="input-wrapper">
 						<i class="fa-solid fa-heading"></i>
 						<input
 							id="title-add-input"
@@ -37,7 +37,7 @@
 
 				<div class="input-field">
 					<label for="author-add-input">Author</label>
-					<div id="author-input-wrapper" class="input-wrapper">
+					<div id="author-add-wrapper" class="input-wrapper">
 						<i class="fa-solid fa-pen-nib"></i>
 						<input
 							id="author-add-input"
@@ -52,7 +52,7 @@
 
 				<div class="input-field">
 					<label for="year-add-input">Year</label>
-					<div id="year-input-wrapper" class="input-wrapper">
+					<div id="year-add-wrapper" class="input-wrapper">
 						<i class="fa-regular fa-calendar"></i>
 						<input
 							id="year-add-input"
@@ -86,7 +86,7 @@
 				<input type="hidden" id="book-id" name="book-id" value="" />
 				<div class="input-field">
 					<label for="title-edit-input">Title</label>
-					<div id="title-input-wrapper" class="input-wrapper">
+					<div id="title-edit-wrapper" class="input-wrapper">
 						<i class="fa-solid fa-heading"></i>
 						<input
 							id="title-edit-input"
@@ -101,7 +101,7 @@
 
 				<div class="input-field">
 					<label for="author-edit-input">Author</label>
-					<div id="author-input-wrapper" class="input-wrapper">
+					<div id="author-edit-wrapper" class="input-wrapper">
 						<i class="fa-solid fa-pen-nib"></i>
 						<input
 							id="author-edit-input"
@@ -116,7 +116,7 @@
 
 				<div class="input-field">
 					<label for="year-edit-input">Year</label>
-					<div id="year-input-wrapper" class="input-wrapper">
+					<div id="year-edit-wrapper" class="input-wrapper">
 						<i class="fa-regular fa-calendar"></i>
 						<input
 							id="year-edit-input"
@@ -146,7 +146,11 @@
 			<navbar class="navbar">
 				<div id="search-input-wrapper" class="input-wrapper">
 					<i class="fa-solid fa-search"></i>
-					<input id="search-input" type="text" placeholder="Search book" />
+					<input
+						id="search-input"
+						type="text"
+						placeholder="Search book"
+						maxlength="60" />
 				</div>
 				<button id="add-book" class="add-book">
 					<i class="fa-regular fa-plus"></i>
@@ -169,6 +173,10 @@
 				</header>
 				<ul id="completed-read" class="book-list"></ul>
 			</article>
+
+			<p class="book-not-found">
+				No book found for search : <span id="book-search-name"></span>
+			</p>
 		</main>
 
 		<script

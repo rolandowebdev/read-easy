@@ -5,15 +5,22 @@ const modalEditForm = document.getElementById('modal-edit-form')
 const yearAddInput = document.getElementById('year-add-input')
 const titleAddInput = document.getElementById('title-add-input')
 const authorAddInput = document.getElementById('author-add-input')
+const bookId = document.getElementById('book-id')
+const yearEditInput = document.getElementById('year-edit-input')
+const titleEditInput = document.getElementById('title-edit-input')
+const authorEditInput = document.getElementById('author-edit-input')
 const closeModalAddBook = document.getElementById('close-modal-add-book')
 const closeModalEditBook = document.getElementById('close-modal-edit-book')
 const completedBookCount = document.getElementById('completed-book-count')
 const uncompletedBookCount = document.getElementById('uncompleted-book-count')
 const inputWrappers = {
 	search: document.getElementById('search-input-wrapper'),
-	title: document.getElementById('title-input-wrapper'),
-	author: document.getElementById('author-input-wrapper'),
-	year: document.getElementById('year-input-wrapper')
+	titleAdd: document.getElementById('title-add-wrapper'),
+	authorAdd: document.getElementById('author-add-wrapper'),
+	yearAdd: document.getElementById('year-add-wrapper'),
+	titleEdit: document.getElementById('title-edit-wrapper'),
+	authorEdit: document.getElementById('author-edit-wrapper'),
+	yearEdit: document.getElementById('year-edit-wrapper')
 }
 
 const books = []
@@ -62,10 +69,10 @@ function hideModalAddBook() {
 }
 
 function openEditBookForm(bookData) {
-	document.getElementById('book-id').value = bookData.id
-	document.getElementById('title-edit-input').value = bookData.title
-	document.getElementById('author-edit-input').value = bookData.author
-	document.getElementById('year-edit-input').value = bookData.year
+	bookId.value = bookData.id
+	titleEditInput.value = bookData.title
+	authorEditInput.value = bookData.author
+	yearEditInput.value = bookData.year
 
 	const modalBlurBackground = createModalBlur()
 	modalEditForm.classList.add('show')
@@ -144,6 +151,14 @@ function updateUncompletedBookCount() {
 	uncompletedBookCount.textContent = `${uncompletedBooks.length} Book${
 		uncompletedBooks.length > 1 ? 's' : ''
 	}`
+}
+
+function filterBooks(searchValue) {
+	return books.filter((book) => {
+		const title = book.title.toLowerCase()
+		const author = book.author.toLowerCase()
+		return title.includes(searchValue) || author.includes(searchValue)
+	})
 }
 
 function addBook() {
@@ -397,6 +412,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		document.querySelector('.fa-bell').classList.remove('fa-shake')
 	})
 
+	searchInput.addEventListener('input', () => {
+		document.dispatchEvent(new Event(RENDER_EVENT))
+		document.querySelector('.fa-search').classList.add('fa-flip')
+	})
+
+	searchInput.addEventListener('mouseleave', () => {
+		document.querySelector('.fa-search').classList.remove('fa-flip')
+	})
+
 	submitAddBook.addEventListener('submit', (e) => {
 		e.preventDefault()
 		addBook()
@@ -411,10 +435,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		e.preventDefault()
 
 		const editedBookData = {
-			id: +document.getElementById('book-id').value,
-			title: document.getElementById('title-edit-input').value,
-			author: document.getElementById('author-edit-input').value,
-			year: +document.getElementById('year-edit-input').value,
+			id: +bookId.value,
+			title: titleEditInput.value,
+			author: authorEditInput.value,
+			year: +yearEditInput.value,
 			isComplete: false
 		}
 
@@ -436,7 +460,21 @@ document.addEventListener(RENDER_EVENT, () => {
 	const completedRead = document.getElementById('completed-read')
 	completedRead.innerHTML = ''
 
-	for (const bookItem of books) {
+	const searchValue = searchInput.value.toLowerCase()
+	const filteredBooks = filterBooks(searchValue)
+
+	const bookNotFoundElement = document.querySelector('.book-not-found')
+	const bookSearchNameElement = document.getElementById('book-search-name')
+
+	if (filteredBooks.length === 0) {
+		bookNotFoundElement.classList.add('show')
+		bookSearchNameElement.textContent = searchValue
+	} else {
+		bookNotFoundElement.classList.remove('show')
+		bookSearchNameElement.textContent = ''
+	}
+
+	for (const bookItem of filteredBooks) {
 		const bookListItem = createBookListItem(bookItem)
 
 		if (!bookItem.isComplete) {
@@ -455,6 +493,11 @@ closeModalAddBook.addEventListener('click', hideModalAddBook)
 closeModalEditBook.addEventListener('click', hideModalEditBookForm)
 
 handleInputFocusBlur(searchInput, inputWrappers.search)
-handleInputFocusBlur(titleAddInput, inputWrappers.title)
-handleInputFocusBlur(authorAddInput, inputWrappers.author)
-handleInputFocusBlur(yearAddInput, inputWrappers.year)
+
+handleInputFocusBlur(titleAddInput, inputWrappers.titleAdd)
+handleInputFocusBlur(authorAddInput, inputWrappers.authorAdd)
+handleInputFocusBlur(yearAddInput, inputWrappers.yearAdd)
+
+handleInputFocusBlur(titleEditInput, inputWrappers.titleEdit)
+handleInputFocusBlur(authorEditInput, inputWrappers.authorEdit)
+handleInputFocusBlur(yearEditInput, inputWrappers.yearEdit)
