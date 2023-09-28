@@ -233,17 +233,17 @@ function createBookListItem(bookData) {
 	return bookListItem
 }
 
-addBookButton.addEventListener('click', showModalForm)
-backgroundBlur.addEventListener('click', hideModalForm)
-closeModalFormButton.addEventListener('click', hideModalForm)
-
-handleInputFocusBlur(searchInput, inputWrappers.search)
-handleInputFocusBlur(titleInput, inputWrappers.title)
-handleInputFocusBlur(authorInput, inputWrappers.author)
-handleInputFocusBlur(yearInput, inputWrappers.year)
-
 document.addEventListener('DOMContentLoaded', () => {
+	const logo = document.querySelector('.logo')
 	const submitForm = document.getElementById('form-add-book')
+
+	logo.addEventListener('mouseover', () => {
+		document.querySelector('.fa-bell').classList.add('fa-shake')
+	})
+
+	logo.addEventListener('mouseout', () => {
+		document.querySelector('.fa-bell').classList.remove('fa-shake')
+	})
 
 	submitForm.addEventListener('submit', function (event) {
 		event.preventDefault()
@@ -276,3 +276,12 @@ document.addEventListener(RENDER_EVENT, () => {
 	updateCompletedBookCount()
 	updateUncompletedBookCount()
 })
+
+addBookButton.addEventListener('click', showModalForm)
+backgroundBlur.addEventListener('click', hideModalForm)
+closeModalFormButton.addEventListener('click', hideModalForm)
+
+handleInputFocusBlur(searchInput, inputWrappers.search)
+handleInputFocusBlur(titleInput, inputWrappers.title)
+handleInputFocusBlur(authorInput, inputWrappers.author)
+handleInputFocusBlur(yearInput, inputWrappers.year)
