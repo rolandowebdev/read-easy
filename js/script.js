@@ -1,13 +1,13 @@
 const addBookButton = document.getElementById('add-book')
+const modalForm = document.getElementById('modal-add-form')
+const completedBookCount = document.getElementById('completed-book-count')
+const uncompletedBookCount = document.getElementById('uncompleted-book-count')
 const closeModalFormButton = document.getElementById('close-modal-form')
 const searchInput = document.getElementById('search-input')
 const yearInput = document.getElementById('year')
 const titleInput = document.getElementById('title')
 const authorInput = document.getElementById('author')
 const backgroundBlur = document.querySelector('.background-blur')
-const modalForm = document.querySelector('.modal-form')
-const completedBookCount = document.getElementById('completed-book-count')
-const uncompletedBookCount = document.getElementById('uncompleted-book-count')
 const inputWrappers = {
 	search: document.getElementById('search-input-wrapper'),
 	title: document.getElementById('title-input-wrapper'),
@@ -17,6 +17,13 @@ const inputWrappers = {
 
 const books = []
 const RENDER_EVENT = 'render-books'
+
+function createModalBlur() {
+	const modalBlur = document.createElement('div')
+	modalBlur.classList.add('modal-blur')
+
+	return modalBlur
+}
 
 function handleMouseOver(button) {
 	const icon = button.querySelector('i')
@@ -32,6 +39,34 @@ function showModalForm() {
 function hideModalForm() {
 	modalForm.classList.remove('show')
 	backgroundBlur.classList.remove('show')
+}
+
+function showModalAlert(modal) {
+	const modalBlurBackground = createModalBlur()
+
+	modalBlurBackground.addEventListener('click', () => {
+		hideModalAlert(modal)
+	})
+
+	requestAnimationFrame(() => {
+		modalBlurBackground.classList.add('show')
+		modal.classList.add('show')
+	})
+
+	document.body.appendChild(modal)
+	document.body.appendChild(modalBlurBackground)
+}
+
+function hideModalAlert(modal) {
+	const modalBlurBackground = document.querySelector('.modal-blur.show')
+	modalBlurBackground.classList.remove('show')
+
+	modal.classList.remove('show')
+
+	setTimeout(() => {
+		document.body.removeChild(modal)
+		document.body.removeChild(modalBlurBackground)
+	}, 300)
 }
 
 function handleInputFocusBlur(input, wrapper) {
@@ -131,6 +166,66 @@ function deletedBook(bookId) {
 	document.dispatchEvent(new Event(RENDER_EVENT))
 }
 
+function modalDelete(bookData) {
+	const modalBlurBackground = createModalBlur()
+
+	const modalAlert = document.createElement('div')
+
+	const modalTitle = document.createElement('h2')
+	modalTitle.classList.add('modal-title')
+	modalTitle.textContent = 'Delete Book'
+
+	const closeModalAlertIcon = document.createElement('i')
+	closeModalAlertIcon.classList.add('fa-solid', 'fa-xmark')
+
+	const closeModalAlert = document.createElement('button')
+	closeModalAlert.classList.add('close-modal-alert')
+	closeModalAlert.setAttribute('id', 'close-modal-alert')
+	closeModalAlert.append(closeModalAlertIcon)
+
+	closeModalAlert.addEventListener('click', () => {
+		hideModalAlert(modalAlert)
+	})
+
+	const modalHeader = document.createElement('div')
+	modalHeader.classList.add('modal-header')
+	modalHeader.append(modalTitle, closeModalAlert)
+
+	const modalDescription = document.createElement('p')
+	modalDescription.classList.add('modal-description')
+	modalDescription.textContent = 'Are you sure to delete this book?'
+
+	const cancelButton = document.createElement('button')
+	cancelButton.classList.add('cancel-button')
+	cancelButton.textContent = 'Cancel'
+
+	cancelButton.addEventListener('click', () => {
+		hideModalAlert(modalAlert)
+	})
+
+	const deleteButton = document.createElement('button')
+	deleteButton.classList.add('delete-button')
+	deleteButton.textContent = 'Delete'
+
+	deleteButton.addEventListener('click', () => {
+		deletedBook(bookData.id)
+		hideModalAlert(modalAlert)
+	})
+
+	const modalAction = document.createElement('div')
+	modalAction.classList.add('modal-action')
+	modalAction.append(cancelButton, deleteButton)
+
+	const modalContent = document.createElement('div')
+	modalContent.classList.add('modal-content')
+	modalContent.append(modalDescription, modalAction)
+
+	modalAlert.classList.add('modal-alert')
+	modalAlert.append(modalHeader, modalContent)
+
+	return modalAlert
+}
+
 function createBookListItem(bookData) {
 	const editIcon = document.createElement('i')
 	editIcon.classList.add('fa-regular', 'fa-pen-to-square')
@@ -169,7 +264,8 @@ function createBookListItem(bookData) {
 	deleteButton.append(deleteIcon)
 
 	deleteButton.addEventListener('click', () => {
-		deletedBook(bookData.id)
+		const modal = modalDelete(bookData)
+		showModalAlert(modal)
 	})
 
 	const bookAction = document.createElement('div')
