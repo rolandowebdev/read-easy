@@ -1,3 +1,17 @@
+function updateCompletedBookCount() {
+	const completedBooks = books.filter((book) => book.isComplete)
+	completedBookCount.textContent = `${completedBooks.length} Book${
+		completedBooks.length > 1 ? 's' : ''
+	}`
+}
+
+function updateUncompletedBookCount() {
+	const uncompletedBooks = books.filter((book) => !book.isComplete)
+	uncompletedBookCount.textContent = `${uncompletedBooks.length} Book${
+		uncompletedBooks.length > 1 ? 's' : ''
+	}`
+}
+
 function createModalBlur() {
 	const modalBlur = document.createElement('div')
 	modalBlur.classList.add('modal-blur')
@@ -170,6 +184,8 @@ function createModalDelete(bookData) {
 }
 
 function createBookListItem(bookData) {
+	const bookListItem = document.createElement('li')
+
 	const editIcon = document.createElement('i')
 	editIcon.classList.add('fa-regular', 'fa-pen-to-square')
 
@@ -252,12 +268,12 @@ function createBookListItem(bookData) {
 		completedButton.append(completedIcon)
 
 		completedButton.addEventListener('mouseover', () => {
-			completedIcon.classList.add('fa-bounce')
+			completedIcon.classList.add('fa-flip')
 			handleMouseOver(completedButton)
 		})
 
 		completedButton.addEventListener('mouseout', () => {
-			completedIcon.classList.remove('fa-bounce')
+			completedIcon.classList.remove('fa-flip')
 			handleMouseOver(completedButton)
 		})
 
@@ -288,7 +304,6 @@ function createBookListItem(bookData) {
 		bookItemContainer.append(uncompletedButton, bookItemWrapper)
 	}
 
-	const bookListItem = document.createElement('li')
 	bookListItem.classList.add('book-list-item')
 	bookListItem.append(bookItemContainer)
 	bookListItem.setAttribute('id', `book-${bookData.id}`)

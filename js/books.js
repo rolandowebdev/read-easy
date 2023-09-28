@@ -26,20 +26,6 @@ function filterBooks(searchValue) {
 	})
 }
 
-function updateCompletedBookCount() {
-	const completedBooks = books.filter((book) => book.isComplete)
-	completedBookCount.textContent = `${completedBooks.length} Book${
-		completedBooks.length > 1 ? 's' : ''
-	}`
-}
-
-function updateUncompletedBookCount() {
-	const uncompletedBooks = books.filter((book) => !book.isComplete)
-	uncompletedBookCount.textContent = `${uncompletedBooks.length} Book${
-		uncompletedBooks.length > 1 ? 's' : ''
-	}`
-}
-
 function addBook() {
 	const bookData = {
 		id: +new Date(),

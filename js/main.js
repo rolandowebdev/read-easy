@@ -20,9 +20,9 @@ const inputWrappers = {
 	search: document.getElementById('search-input-wrapper'),
 	titleAdd: document.getElementById('title-add-wrapper'),
 	authorAdd: document.getElementById('author-add-wrapper'),
+	authorEdit: document.getElementById('author-edit-wrapper'),
 	yearAdd: document.getElementById('year-add-wrapper'),
 	titleEdit: document.getElementById('title-edit-wrapper'),
-	authorEdit: document.getElementById('author-edit-wrapper'),
 	yearEdit: document.getElementById('year-edit-wrapper')
 }
 
@@ -33,11 +33,11 @@ const STORAGE_KEY = 'EASY_READ_APPS'
 
 document.addEventListener('DOMContentLoaded', () => {
 	logo.addEventListener('mouseover', () => {
-		document.querySelector('.fa-bell').classList.add('fa-shake')
+		document.querySelector('.logo .fa-egg').classList.add('fa-bounce')
 	})
 
 	logo.addEventListener('mouseout', () => {
-		document.querySelector('.fa-bell').classList.remove('fa-shake')
+		document.querySelector('.logo .fa-egg').classList.remove('fa-bounce')
 	})
 
 	searchInput.addEventListener('input', () => {
@@ -45,11 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	})
 
 	searchInput.addEventListener('focus', () => {
-		document.querySelector('.fa-search').classList.add('fa-flip')
+		document
+			.querySelector('#search-input-wrapper .fa-search')
+			.classList.add('fa-flip')
 	})
 
 	searchInput.addEventListener('blur', () => {
-		document.querySelector('.fa-search').classList.remove('fa-flip')
+		document
+			.querySelector('#search-input-wrapper .fa-search')
+			.classList.remove('fa-flip')
 	})
 
 	if (isStorageExist()) {
