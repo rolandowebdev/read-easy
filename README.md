@@ -1,4 +1,6 @@
-# Read Easy - Belajar Membuat Front-End Web untuk Pemula - IDCamp Scholarship Submission Project 2023
+# [Read Easy - Belajar Membuat Front-End Web untuk Pemula - IDCamp Scholarship Submission Project 2023](https://www.dicoding.com/academies/315/corridor)
+
+[![Read Easy Preview](assets/read-easy-preview.png)]
 
 Welcome to the Read Easy project! This application is part of my submission for the IDCamp scholarship in 2023. Read Easy is a simple open management application designed to help beginners create web frontends using only HTML and CSS. Whether you're new to web development or looking for a straightforward example project, Read Easy is here to assist you.
 
