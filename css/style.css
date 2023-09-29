@@ -43,8 +43,7 @@
 .header {
 	width: 100%;
 	max-width: 32rem;
-	margin-bottom: 1.25rem;
-	margin-top: 2rem;
+	margin-block: 1rem;
 }
 
 .header .logo {
@@ -123,6 +122,8 @@
 .book-container .book-list {
 	display: flex;
 	flex-direction: column;
+	max-height: 180px;
+	overflow-y: auto;
 }
 
 .book-list .book-list-item {
@@ -132,6 +133,7 @@
 	justify-content: space-between;
 	border-radius: var(--border-radius);
 	transition: 0.3s ease;
+	cursor: default;
 }
 
 .book-list .book-list-item:hover {
@@ -182,10 +184,10 @@
 	gap: 0.75rem;
 }
 
-.edit-book > i,
-.delete-book > i,
-.uncompleted-read > i,
-.completed-read > i {
+.edit-book-button > i,
+.delete-book-button > i,
+.uncompleted-read-button > i,
+.completed-read-button > i {
 	font-size: 1.125rem;
 }
 
