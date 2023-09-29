@@ -10,7 +10,7 @@ Welcome to the Read Easy project! This application is part of my submission for 
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
-- [Contributing](#contributing)
+- [Information](#information)
 
 ## Introduction
 
@@ -53,16 +53,26 @@ Once you have the project up and running, you can explore the Read Easy applicat
 
 - **Learn and Experiment :** Use this project as a learning resource. Try adding new elements, modifying styles, or implementing additional features using HTML and CSS.
 
-## Contributing
+## Information
 
-Contributions to this project are welcome! If you'd like to contribute, follow these steps:
+This repository is a Dicoding submission for the Learning to Create Front-End Web for Beginners class. This class has submissions that must be completed to earn a certificate. The contents of this repository are the final section that includes the required criteria.
 
-1. Fork the repository to your GitHub account.
-2. Clone the forked repository to your local machine.
-3. Create a new branch for your changes: git checkout -b feature/your-feature-name.
-4. Make your changes, commit them, and push to your GitHub repository.
-5. Open a pull request from your forked repository to the original repository.
+> **_WARNING: Use this repo as a reference/reference._**
+>
+> - In accordance with the terms of use at Dicoding, Dicoding Academy class submissions must be your own work.
+>
+> - Code obtained from other sources (websites, books, forums, GitHub, etc.) is only used as a reference. The level of similarity cannot be more than 70%.
 
-Please ensure that your contributions align with the project's goals and maintain the simplicity of the application.
+<br clear="both">
+<br clear="both">
+
+> If you have questions or issues, visit the following repository -> [new issue](https://github.com/Ardywsptr/AWSMovies_Submission-Fundamental-Front-End-Web-Developer/issues/new)
+> If this documentation is useful, let's be friends by pressing the follow button on this [profile](https://github.com/rolandowebdev) and star this [repository](https://github.com/rolandowebdev/read-easy) ☺☺☺
+
+<br clear="both">
+
+Big thanks for [Dicoding](https://www.dicoding.com/) and [Idcamp](https://idcamp.ioh.co.id/)
+
+<br clear="both">
 
 Thank you for checking out Read Easy! Happy learning and coding! If you have any questions or encounter any issues, feel free to open an issue on this repository.
