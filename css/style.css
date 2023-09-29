@@ -43,7 +43,7 @@
 .header {
 	width: 100%;
 	max-width: 32rem;
-	margin-block: 1rem;
+	margin-block: 1.125rem;
 }
 
 .header .logo {
@@ -67,7 +67,7 @@
 }
 
 .header .navbar {
-	margin-top: 2rem;
+	margin-top: 1.125rem;
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
@@ -122,7 +122,7 @@
 .book-container .book-list {
 	display: flex;
 	flex-direction: column;
-	max-height: 180px;
+	max-height: 25vh;
 	overflow-y: auto;
 }
 
@@ -390,6 +390,10 @@
 .modal-blur.show {
 	opacity: 1;
 	z-index: 9;
+}
+
+.footer-title {
+	font-size: 0.875rem;
 }
 
 .edit-book-button,
