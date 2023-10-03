@@ -66,7 +66,7 @@ This repository is a Dicoding submission for the Learning to Create Front-End We
 <br clear="both">
 <br clear="both">
 
-> If you have questions or issues, visit the following repository -> [new issue](https://github.com/Ardywsptr/AWSMovies_Submission-Fundamental-Front-End-Web-Developer/issues/new)
+> If you have questions or issues, visit the following repository -> [new issue](https://github.com/rolandowebdev/read-easy/issues/new)
 > If this documentation is useful, let's be friends by pressing the follow button on this [profile](https://github.com/rolandowebdev) and star this [repository](https://github.com/rolandowebdev/read-easy) 😁️
 
 <br clear="both">
